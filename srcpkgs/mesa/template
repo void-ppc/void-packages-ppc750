@@ -78,7 +78,10 @@ esac
 
 if [ "$_have_amd" ]; then
 	# amd cards can use clover
-	_have_opencl=yes
+	case "$XBPS_TARGET_MACHINE" in
+		ppc*) ;;
+		*) _have_opencl=yes ;;
+	esac
 	_have_vulkan=yes
 	_gallium_drivers+=",r300,r600,radeonsi"
 	_vulkan_drivers+=",amd"
@@ -161,7 +164,11 @@ _vulkan_drivers=${_vulkan_drivers/=,/=}
 configure_args+=" ${_vulkan_drivers}"
 
 if [ "$_have_vulkan" ]; then
-	_have_zink=yes
+	case "$XBPS_TARGET_MACHINE" in
+		ppc*) ;;
+		*) _have_zink=yes ;;
+	esac
+
 	configure_args+=" -Dvulkan-layers=device-select,overlay"
 	if [ "$_have_intel" ]; then
 		configure_args+=",intel-nullhw"
