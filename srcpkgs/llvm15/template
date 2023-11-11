@@ -185,6 +185,14 @@ clang-tools-extra15_package() {
 	homepage="https://clang.llvm.org/extra/"
 	conflicts="clang-tools-extra17"
 	pkg_install() {
+		case "$XBPS_TARGET_MACHINE" in
+			ppc*) ;;
+			*)
+				vmove usr/bin/clangd
+				vmove "usr/lib/libclangDaemon*"
+				vmove "usr/lib/libclangd*"
+				;;
+		esac
 		vmove usr/bin/clang-apply-replacements
 		vmove usr/bin/clang-change-namespace
 		vmove usr/bin/clang-doc
@@ -194,7 +202,6 @@ clang-tools-extra15_package() {
 		vmove usr/bin/clang-query
 		vmove usr/bin/clang-reorder-fields
 		vmove usr/bin/clang-tidy
-		vmove usr/bin/clangd
 		vmove usr/bin/find-all-symbols
 		vmove usr/bin/hmaptool
 		vmove usr/bin/modularize
@@ -202,7 +209,6 @@ clang-tools-extra15_package() {
 		vmove usr/include/clang-tidy
 		vmove "usr/lib/libclangApplyReplacements*"
 		vmove "usr/lib/libclangChangeNamespace*"
-		vmove "usr/lib/libclangDaemon*"
 		vmove "usr/lib/libclangDoc*"
 		vmove "usr/lib/libclangIncludeCleaner*"
 		vmove "usr/lib/libclangIncludeFixer*"
@@ -211,7 +217,6 @@ clang-tools-extra15_package() {
 		vmove "usr/lib/libclangReorderFields*"
 		vmove "usr/lib/libclangQuery*"
 		vmove "usr/lib/libclangTidy*"
-		vmove "usr/lib/libclangd*"
 		vmove "usr/lib/libfindAllSymbols*"
 		vmove "usr/share/clang/*find-all-symbols*"
 		vmove "usr/share/clang/*include-fixer*"
