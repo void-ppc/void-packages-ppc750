@@ -2,10 +2,9 @@
 pkgname=lcms2
 version=2.16
 revision=2
-build_style=meson
-configure_args="-Dutils=true -Dsamples=true $(vopt_bool plugins fastfloat) $(vopt_bool plugins threaded)"
+build_style=gnu-configure
 hostmakedepends="pkg-config"
-makedepends="tiff-devel libjpeg-turbo-devel"
+makedepends="tiff-devel"
 short_desc="Small-footprint color management engine, version 2"
 maintainer="skmpz <dem.procopiou@gmail.com>"
 license="MIT $(vopt_if plugins GPL-3.0-or-later)"
