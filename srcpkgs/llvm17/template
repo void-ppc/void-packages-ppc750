@@ -46,10 +46,14 @@ lib32disabled=yes
 python_version=3
 
 build_options="clang clang_tools_extra lld mlir libclc polly lldb flang bolt"
-build_options_default="clang clang_tools_extra lld mlir libclc polly lldb"
+build_options_default="clang lld mlir libclc polly"
 
 case "$XBPS_TARGET_MACHINE" in
-	x86_64*|aarch64*) build_options_default+=" flang bolt ";;
+	x86_64*|aarch64*) build_options_default+=" clang_tools_extra lldb flang bolt ";;
+	ppc64*) build_options_default+=" clang_tools_extra lldb" ;;
+	# clangd and lldb are broken on 32-bit PPC.  Don't enable them.
+	ppc*) ;;
+	*) build_options_default+=" clang_tools_extra lldb" ;;
 esac
 
 if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
