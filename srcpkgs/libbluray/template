@@ -18,19 +18,28 @@ case "$XBPS_TARGET_MACHINE" in
 	x86_64*|i686*|arm*|aarch64*|ppc64*)
 		hostmakedepends+=" apache-ant openjdk8"
 		;;
-	*) configure_args+=" --disable-bdjava-jar";;
+	*)
+		configure_args+=" --disable-bdjava-jar"
+		noJava=true
+		;;
 esac
 
 pre_build() {
-	. /etc/profile.d/jdk.sh
+	if [ "$noJava" != "true" ]; then
+		. /etc/profile.d/jdk.sh
+	fi
 }
 
 pre_check() {
-	. /etc/profile.d/jdk.sh
+	if [ "$noJava" != "true" ]; then
+		. /etc/profile.d/jdk.sh
+	fi
 }
 
 pre_install() {
-	. /etc/profile.d/jdk.sh
+	if [ "$noJava" != "true" ]; then
+		. /etc/profile.d/jdk.sh
+	fi
 }
 
 libbluray-devel_package() {
